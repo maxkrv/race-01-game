@@ -1,0 +1,246 @@
+body {
+    background-color: #111;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 36px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+}
+
+#user-info {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#user-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: #333; /* Цвет фона для аватара */
+    margin-bottom: 10px;
+}
+
+#user-name {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#logout-link {
+    background-color: #d9534f; /* Цвет кнопки */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#logout-link:hover {
+    background-color: #c9302c; /* Цвет кнопки при наведении */
+}
+
+/* Скрыть ползунок у элемента <audio> */
+audio::-webkit-media-controls-panel {
+    display: none !important;
+  }
+  
+  /* Скрыть ползунок у элемента <audio> для других браузеров */
+  audio::-webkit-media-controls {
+    display: none !important;
+  }
+  
+  /* Добавить стили для отображения только кнопок управления вместо ползунка */
+  audio::-webkit-media-controls-play-button,
+  audio::-webkit-media-controls-volume-slider {
+    display: inline-block !important;
+  }
+  
+  /* Стиль для затемнения экрана */
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Черный полупрозрачный фон */
+    display: none; /* По умолчанию скрыто */
+}
+
+/* Стиль для панели с кнопками */
+#game-panel {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff; /* Цвет фона панели */
+    padding: 20px;
+    border-radius: 10px;
+    display: none; /* По умолчанию скрыто */
+}
+
+/* Стиль для кнопок */
+#game-panel button {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    background-color: #007bff; /* Цвет фона кнопок */
+    color: #fff; /* Цвет текста кнопок */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#game-panel button:hover {
+    background-color: #0056b3; /* Цвет фона кнопок при наведении */
+}
+
+/* Стили для списка комнат */
+#room-list-container {
+    margin-top: 20px;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#room-list {
+    list-style: none;
+    padding: 0;
+}
+
+#room-list li {
+    background-color: #555;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#room-list li:hover {
+    background-color: #007bff;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+#room-list-container ul {
+    padding-left: 0;
+}
+
+#room-list-container li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#room-list-container li span {
+    font-weight: bold;
+}
+
+#room-list-container li button {
+    background-color: #d9534f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#room-list-container li button:hover {
+    background-color: #c9302c;
+}
+
+/* Стили для панели смены аватара */
+.avatar-panel {
+    display: none;
+    text-align: center;
+    background-color: #333; /* Цвет фона панели */
+    padding: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-panel h2 {
+    font-size: 24px;
+    color: #fff; /* Цвет текста */
+    margin-bottom: 10px;
+}
+
+.avatar-panel form {
+    margin-top: 20px;
+}
+.avatar-panel label {
+    display: block;
+    background-color: #007bff; /* Цвет фона кнопки "Choose File" */
+    color: #fff; /* Цвет текста кнопки "Choose File" */
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.avatar-panel label:hover {
+    background-color: #0056b3; /* Цвет фона кнопки "Choose File" при наведении */
+}
+
+.avatar-panel input[type="submit"] {
+    background-color: #d9534f; /* Цвет фона кнопки "Сохранить" */
+    color: #fff; /* Цвет текста кнопки "Сохранить" */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.avatar-panel input[type="submit"]:hover {
+    background-color: #c9302c; /* Цвет фона кнопки "Сохранить" при наведении */
+}
+
+.avatar-panel button {
+    background-color: #555; /* Цвет фона кнопки "Cancel" */
+    color: #fff; /* Цвет текста кнопки "Cancel" */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.avatar-panel button:hover {
+    background-color: #333; /* Цвет фона кнопки "Cancel" при наведении */
+}
