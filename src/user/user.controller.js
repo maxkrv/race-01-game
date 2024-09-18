@@ -1,11 +1,7 @@
-const User = require("../models/user");
+const User = require("../models/user.model");
 const path = require("path");
 const pool = require("../db/db");
-const {
-  findUserByLoginAndPassword,
-  sendPasswordReminderEmail,
-  registerUserAndSaveToDatabase,
-} = require("../model");
+const { sendPasswordReminderEmail } = require("../services/emailService");
 
 async function registerUser(req, res) {
   const { login, password, confirm_password, full_name, email_address } =
@@ -16,13 +12,8 @@ async function registerUser(req, res) {
   }
 
   try {
-    await registerUserAndSaveToDatabase(
-      login,
-      password,
-      full_name,
-      email_address,
-      pool
-    );
+    const newUser = new User(login, password, full_name, email_address, pool);
+    await newUser.saveToDatabase();
 
     return res.redirect("/registered");
   } catch (err) {
@@ -32,17 +23,13 @@ async function registerUser(req, res) {
 }
 
 async function loginUser(req, res) {
-  console.log("Login request received");
   const { login, password } = req.body;
-  console.log("Login data:", login, password);
 
   try {
-    const user = await findUserByLoginAndPassword(login, password, pool);
-    console.log("User found:", user);
+    const user = await User.findUserByLoginAndPassword(login, password, pool);
     if (user) {
       req.session.loggedIn = true;
       req.session.user = user;
-      console.log("User logged in:", req.session.user);
       res.sendFile(path.join(__dirname, "../../views/main-menu.html"));
     } else {
       res.status(401).json({ error: "Unauthorized" });
@@ -56,8 +43,8 @@ async function loginUser(req, res) {
 async function forgotPassword(req, res) {
   const { email } = req.body;
 
-  const user = new User();
-  user.findUserByEmail(email, pool, (err, user) => {
+  try {
+    const user = await User.findUserByEmail(email, pool);
     if (user) {
       sendPasswordReminderEmail(email, user.password);
       res
@@ -66,7 +53,10 @@ async function forgotPassword(req, res) {
     } else {
       res.status(400).json({ error: "Email not found." });
     }
-  });
+  } catch (err) {
+    console.error("Error finding user:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 }
 
 function logoutUser(req, res) {
@@ -84,7 +74,7 @@ async function getUserInfo(req, res) {
 
   try {
     const [results] = await pool.query(
-      "SELECT login, avatar_path FROM cards_web.users WHERE login = ?",
+      "SELECT login, avatar_path FROM users WHERE login = ?",
       [userId]
     );
 
@@ -94,7 +84,7 @@ async function getUserInfo(req, res) {
 
     res.json(results[0]);
   } catch (error) {
-    console.error("Ошибка запроса к базе данных:", error);
+    console.error("Database query error:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 }
@@ -102,13 +92,12 @@ async function getUserInfo(req, res) {
 function uploadAvatar(req, res) {
   const username = req.session.user.login;
   const avatarPath = req.file.filename;
-  const updateQuery =
-    "UPDATE cards_web.users SET avatar_path = ? WHERE login = ?";
+  const updateQuery = "UPDATE users SET avatar_path = ? WHERE login = ?";
 
-  db.query(updateQuery, [avatarPath, username], (err) => {
+  pool.query(updateQuery, [avatarPath, username], (err) => {
     if (err) {
-      console.error("Ошибка при обновлении аватара в базе данных", err);
-      return res.status(500).json({ message: "Ошибка при обновлении аватара" });
+      console.error("Error updating avatar in database", err);
+      return res.status(500).json({ message: "Error updating avatar" });
     }
 
     res.sendFile(path.join(__dirname, "../../views/main-menu.html"));

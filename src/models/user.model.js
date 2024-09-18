@@ -7,11 +7,10 @@ class User {
     this.db = db;
   }
 
-  // Асинхронный метод для сохранения пользователя в базу данных
   async saveToDatabase() {
     const sql =
-      "INSERT INTO users (login, password, full_name, email_address) VALUES (?, ?, ?, ?)";
-    const url = "avatars/baza.png"; // По умолчанию URL для аватара
+      "INSERT INTO users (login, password, full_name, email_address, avatar_path) VALUES (?, ?, ?, ?, ?)";
+    const url = "avatars/baza.png";
     const values = [
       this.login,
       this.password,
@@ -22,7 +21,6 @@ class User {
 
     try {
       const [result] = await this.db.query(sql, values);
-      console.log("User registered successfully");
       return result;
     } catch (err) {
       console.error("Database error: " + err);
@@ -30,38 +28,32 @@ class User {
     }
   }
 
-  // Асинхронный метод для поиска пользователя по логину и паролю
-  async findUser() {
+  static async findUserByLoginAndPassword(login, password, db) {
     const sql = "SELECT * FROM users WHERE login = ? AND password = ?";
-    const values = [this.login, this.password];
+    const values = [login, password];
 
     try {
-      const [results] = await this.db.query(sql, values);
-
+      const [results] = await db.query(sql, values);
       if (results.length === 0) {
         return null;
-      } else {
-        return results[0];
       }
+      return results[0];
     } catch (err) {
       console.error("Database error: " + err);
       throw err;
     }
   }
 
-  // Асинхронный метод для поиска пользователя по email
   static async findUserByEmail(email, db) {
     const sql = "SELECT * FROM users WHERE email_address = ?";
     const values = [email];
 
     try {
       const [results] = await db.query(sql, values);
-
       if (results.length === 0) {
         return null;
-      } else {
-        return results[0];
       }
+      return results[0];
     } catch (err) {
       console.error("Database error: " + err);
       throw err;
