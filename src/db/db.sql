@@ -1,8 +1,8 @@
-CREATE DATABASE IF NOT EXISTS ucode_web;
+CREATE DATABASE IF NOT EXISTS cards_web;
 CREATE USER IF NOT EXISTS 'oputij'@'localhost' IDENTIFIED BY 'securepass';
-GRANT ALL ON ucode_web.* TO 'oputij'@'localhost';
+GRANT ALL ON cards_web.* TO 'oputij'@'localhost';
 
-CREATE TABLE IF NOT EXISTS ucode_web.users (
+CREATE TABLE IF NOT EXISTS cards_web.users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     login VARCHAR(50) NOT NULL,
     password VARCHAR(255) NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS ucode_web.users (
     avatar_path VARCHAR(255) DEFAULT 'baza.png'
 );
 
-CREATE TABLE IF NOT EXISTS ucode_web.cards (
+CREATE TABLE IF NOT EXISTS cards_web.cards (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(25) NOT NULL UNIQUE,
     type ENUM('spell', 'creature') NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS ucode_web.cards (
     image_path VARCHAR(255)
 );
 
-INSERT INTO ucode_web.cards (name, type, hp, damage, cost, description, image_path) VALUES
+INSERT INTO cards_web.cards (name, type, hp, damage, cost, description, image_path) VALUES
     ('ПироМЯУнт', 'creature', 3, 3, 3, 'горит','1.jpg'),
     ('Бродягя', 'creature', 1, 1, 0, 'кубик','2.jpg'),
     ('КОТострофа', 'creature', 10, 10, 10, 'ужасающе стоит','3.jpg'),
@@ -44,3 +44,5 @@ INSERT INTO ucode_web.cards (name, type, hp, damage, cost, description, image_pa
     ('бджола', 'spell', 2, 2, 1, 'бззззззз','18.jpg'),
     ('Воришка', 'creature', 1, 2, 1, 'клич даёт монетку;','19.jpg'),
     ('Танк', 'creature', 20, 5, 7, 'любит эту роль','20.jpg');
+
+SELECT * FROM cards_web.users;
