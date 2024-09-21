@@ -43,7 +43,7 @@ a {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background-color: #333; /* Цвет фона для аватара */
+    background-color: #333;
     margin-bottom: 10px;
 }
 
@@ -53,7 +53,7 @@ a {
 }
 
 #logout-link {
-    background-color: #d9534f; /* Цвет кнопки */
+    background-color: #d9534f;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -63,65 +63,64 @@ a {
 }
 
 #logout-link:hover {
-    background-color: #c9302c; /* Цвет кнопки при наведении */
+    background-color: #c9302c;
 }
 
-/* Скрыть ползунок у элемента <audio> */
+
 audio::-webkit-media-controls-panel {
     display: none !important;
   }
   
-  /* Скрыть ползунок у элемента <audio> для других браузеров */
+ 
   audio::-webkit-media-controls {
     display: none !important;
   }
   
-  /* Добавить стили для отображения только кнопок управления вместо ползунка */
+ 
   audio::-webkit-media-controls-play-button,
   audio::-webkit-media-controls-volume-slider {
     display: inline-block !important;
   }
   
-  /* Стиль для затемнения экрана */
+ 
 #overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Черный полупрозрачный фон */
-    display: none; /* По умолчанию скрыто */
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
 }
 
-/* Стиль для панели с кнопками */
+
 #game-panel {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #ffffff; /* Цвет фона панели */
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
-    display: none; /* По умолчанию скрыто */
+    display: none;
 }
 
-/* Стиль для кнопок */
+
 #game-panel button {
     display: block;
     margin: 10px auto;
     padding: 10px 20px;
-    background-color: #007bff; /* Цвет фона кнопок */
-    color: #fff; /* Цвет текста кнопок */
+    background-color: #007bff;
+    color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
 #game-panel button:hover {
-    background-color: #0056b3; /* Цвет фона кнопок при наведении */
+    background-color: #0056b3;
 }
 
-/* Стили для списка комнат */
 #room-list-container {
     margin-top: 20px;
     background-color: #333;
@@ -181,11 +180,11 @@ h2 {
     background-color: #c9302c;
 }
 
-/* Стили для панели смены аватара */
+
 .avatar-panel {
     display: none;
     text-align: center;
-    background-color: #333; /* Цвет фона панели */
+    background-color: #333;
     padding: 20px;
     position: absolute;
     top: 50%;
@@ -197,7 +196,7 @@ h2 {
 
 .avatar-panel h2 {
     font-size: 24px;
-    color: #fff; /* Цвет текста */
+    color: #fff;
     margin-bottom: 10px;
 }
 
@@ -206,34 +205,34 @@ h2 {
 }
 .avatar-panel label {
     display: block;
-    background-color: #007bff; /* Цвет фона кнопки "Choose File" */
-    color: #fff; /* Цвет текста кнопки "Choose File" */
+    background-color: #007bff;
+    color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .avatar-panel label:hover {
-    background-color: #0056b3; /* Цвет фона кнопки "Choose File" при наведении */
+    background-color: #0056b3;
 }
 
-.avatar-panel input[type="submit"] {
-    background-color: #d9534f; /* Цвет фона кнопки "Сохранить" */
-    color: #fff; /* Цвет текста кнопки "Сохранить" */
+.avatar-panel button {
+    background-color: #d9534f;
+    color: #fff;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
     margin-top: 10px;
     cursor: pointer;
-}
 
-.avatar-panel input[type="submit"]:hover {
-    background-color: #c9302c; /* Цвет фона кнопки "Сохранить" при наведении */
+    &:hover {
+        background-color: #c9302c;
+    }    
 }
 
 .avatar-panel button {
-    background-color: #555; /* Цвет фона кнопки "Cancel" */
-    color: #fff; /* Цвет текста кнопки "Cancel" */
+    background-color: #555;
+    color: #fff;
     border: none;
     border-radius: 5px;
     padding: 10px 20px;
@@ -242,5 +241,5 @@ h2 {
 }
 
 .avatar-panel button:hover {
-    background-color: #333; /* Цвет фона кнопки "Cancel" при наведении */
+    background-color: #333;
 }

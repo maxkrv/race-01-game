@@ -7,9 +7,9 @@ const manaValue = document.querySelector(".value");
 const enemyName = document.querySelector(".enemy-name");
 const myName = document.querySelector(".my-name");
 const timerDisplay = document.getElementById("timer");
-const enemyImg = document.querySelector('.enemy-head');
-const myImg = document.querySelector('.my-head');
-const Move = document.querySelector('.currentMove');
+const enemyImg = document.querySelector(".enemy-head");
+const myImg = document.querySelector(".my-head");
+const Move = document.querySelector(".currentMove");
 
 const urlParams = new URLSearchParams(window.location.search);
 const roomId = urlParams.get("roomId");
@@ -67,19 +67,16 @@ function createEnemyCard(card) {
   cardElement.textContent = card.name;
   cardElement.style.backgroundImage = `url("images/${card.image_path}")`;
 
-  // Create a stats container
   const statsElement = document.createElement("div");
   statsElement.className = "card-stats";
   statsElement.textContent = `Cost: ${card.cost}, Attack: ${card.damage}, Health: ${card.hp}`;
 
-  // Set the data-text attribute with the card's stats
   cardElement.setAttribute("data-text", card.description);
 
-  // Append stats to the card
   cardElement.appendChild(statsElement);
 
   cardElement.dataset.id = card.id;
-  // return cardElement;
+
   for (const child of enemyField.children) {
     if (child.childElementCount == 0) {
       child.appendChild(cardElement);
@@ -88,7 +85,6 @@ function createEnemyCard(card) {
   }
 }
 
-// Function to create a card element with stats
 function createCard(card) {
   if (countCardsInHand >= 6) {
     return;
@@ -102,27 +98,22 @@ function createCard(card) {
   cardElement.textContent = card.name;
   cardElement.style.backgroundImage = `url("images/${card.image_path}")`;
 
-  // Create a stats container
   const statsElement = document.createElement("div");
   statsElement.className = "card-stats";
   statsElement.textContent = `Cost: ${card.cost}, Attack: ${card.damage}, Health: ${card.hp}`;
 
-  // Set the data-text attribute with the card's stats
   cardElement.setAttribute("data-text", card.description);
 
-  // Append stats to the card
   cardElement.appendChild(statsElement);
 
   cardElement.dataset.id = card.id;
   cardElement.setAttribute("data-is-used", false);
-  // return cardElement;
+
   hand.appendChild(cardElement);
 
-  // Add drag event listeners to the card
   cardElement.addEventListener("dragstart", handleDragStart);
 }
 
-// Function to handle drag start event
 function handleDragStart(event) {
   if (!isPlayerAllowedToInteract) {
     alert("Not your turn yet!");
@@ -135,7 +126,6 @@ function handleDragStart(event) {
   event.dataTransfer.setData("text/plain", event.target.dataset.id);
 }
 
-// Function to handle drag over event
 function handleDragOver(event) {
   if (!isPlayerAllowedToInteract) {
     return;
@@ -143,7 +133,6 @@ function handleDragOver(event) {
   event.preventDefault();
 }
 
-// Function to handle drop event
 function handleDrop(event) {
   if (!isPlayerAllowedToInteract) {
     return;
@@ -152,15 +141,12 @@ function handleDrop(event) {
   const cardId = event.dataTransfer.getData("text/plain");
   const cardElement = hand.querySelector(`[data-id="${cardId}"]`);
 
-  // Check if the card is dropped onto a card placeholder
   if (event.target.classList.contains("my-card")) {
-    // Clone the card and append it to the table field
     const clonedCard = cardElement.cloneNode(true);
     clonedCard.setAttribute("data-is-used", true);
 
     event.target.appendChild(clonedCard);
 
-    // Apply the hover effect to the cloned card
     clonedCard.addEventListener("mouseover", function () {
       this.style.transform = "translateY(-10px) scale(1.5)";
     });
@@ -175,7 +161,6 @@ function handleDrop(event) {
 
     loadCurrentMana();
 
-    // Remove the card from the hand
     cardElement.remove();
     countCardsInHand--;
 
@@ -183,7 +168,6 @@ function handleDrop(event) {
   }
 }
 
-// Function to handle card click event
 function handleCardClick(event) {
   if (!isPlayerAllowedToInteract) {
     alert("Not your turn yet!");
@@ -201,13 +185,11 @@ function handleCardClick(event) {
     card.classList.contains("card") &&
     card.parentElement.classList.contains("my-card")
   ) {
-    // Remove the "glow" class from all cards in the "my-card" container
     const myCards = document.querySelectorAll(".my-card .card");
     myCards.forEach((myCard) => {
       myCard.classList.remove("glow");
     });
 
-    // Toggle the "glow" class on the clicked card
     card.classList.toggle("glow");
   }
 
@@ -256,83 +238,68 @@ function handleCardClick(event) {
   }
 }
 
-function getfirstplayer(socket, roomId) {
+function getFirstPlayer(socket, roomId) {
   try {
-    // Отправляем событие "first-step" на сервер с указанием roomId
     socket.emit("first-step", roomId);
 
-    // Ожидаем ответа от сервера через событие "first-step-result"
     const firstMove = new Promise((resolve, reject) => {
       socket.on("first-step-result", (player) => {
         resolve(player);
       });
     });
 
-    // Возвращаем игрока, который будет первым ходить
     return firstMove;
   } catch (error) {
-    console.error("Произошла ошибка при получении первого игрока:", error);
     throw error;
   }
 }
 
-// Waitng for enemy
 socket.on("timer-duration-ready", (time) => {
-  const countdownElement = document.querySelector('.countdown');
+  const countdownElement = document.querySelector(".countdown");
 
-  // Set the initial countdown value
   let countdownValue = time;
 
-  // Function to update the countdown
   function updateCountdown() {
     countdownElement.textContent = countdownValue;
     countdownValue--;
 
-    // Check if the countdown has reached 0
     if (countdownValue < 0) {
-      countdownElement.style.display = 'none'; // Hide the countdown text
-      clearInterval(interval); // Stop the countdown
+      countdownElement.style.display = "none";
+      clearInterval(interval);
     }
   }
 
-  // Call the updateCountdown function every second (1000 milliseconds)
   const interval = setInterval(updateCountdown, 1000);
 });
 
 socket.on("players-ready", () => {
-  // Start battle
-  // Load enemy
   socket.emit("send-enemy", currentLogin, roomId);
 
   socket.on("get-enemy", (enemy, sender) => {
     if (sender == currentLogin) {
       currentEnemy = enemy;
-      socket.emit('get_path_by_name_enemy', currentEnemy);
+      socket.emit("get_path_by_name_enemy", currentEnemy);
     }
   });
 
-  socket.emit('get_path_by_name_my', currentLogin);
-  socket.on('send-path_my', (path) => {
+  socket.emit("get_path_by_name_my", currentLogin);
+  socket.on("send-path_my", (path) => {
     if (path != null) {
-    myImg.style.backgroundImage = `url("avatars/${path}")`;
+      myImg.style.backgroundImage = `url("avatars/${path}")`;
     }
   });
 
-  socket.on('send-path_enemy', (path) => {
+  socket.on("send-path_enemy", (path) => {
     if (path != null) {
-    enemyImg.style.backgroundImage = `url("avatars/${path}")`;
+      enemyImg.style.backgroundImage = `url("avatars/${path}")`;
     }
   });
 
-
-  // Generate your cards
   for (let index = 0; index < 3; index++) {
     socket.emit("get-card", currentLogin);
   }
-  
 
-  getfirstplayer(socket, roomId).then((firstMove) => {
-    console.log("Первый ходит игрок:", firstMove);
+  getFirstPlayer(socket, roomId).then((firstMove) => {
     if (currentLogin == firstMove) {
       isPlayerAllowedToInteract = true;
       loadCurrentPlayer(currentLogin);
@@ -350,11 +317,11 @@ socket.on("players-ready", () => {
     myName.textContent = currentLogin;
     enemyName.textContent = currentEnemy;
     if (isPlayerAllowedToInteract) {
-      console.log(`${currentLogin}'s move now`);
+      console.log(`${currentLogin}'s turn now`);
 
       socket.emit("start-turn-timer", 10, roomId);
     } else {
-      console.log("Not your move");
+      console.log("Not your turn");
     }
   });
 
@@ -384,21 +351,18 @@ socket.on("players-ready", () => {
     }
   });
 
-  // Load yuor card
   socket.on("randomCard", (randomCard, login) => {
     if (login == currentLogin) {
       createCard(randomCard);
     }
   });
 
-  // Load enemy card
   socket.on("load-enemy-card", (enemyCard, sender) => {
     if (currentLogin != sender) {
       createEnemyCard(enemyCard);
     }
   });
 
-  // Take damage
   socket.on("get-damage", (damage, damagedCardId, damagedPlayer) => {
     if (damagedPlayer == currentLogin) {
       let myCardElements = document.querySelectorAll(".my-card");
@@ -406,16 +370,15 @@ socket.on("players-ready", () => {
 
       for (let i = 0; i < myCardElements.length; i++) {
         let myCardElement = myCardElements[i];
-        // Внутри каждого элемента .enemy-card находим .card
+
         let tempElement = myCardElement.querySelector(".card");
 
-        // Проверяем, есть ли .card внутри .enemy-card и получаем data-id
         if (tempElement) {
           var searchedCardId = tempElement.getAttribute("data-id");
-          // Сравниваем значение data-id с целевым значением
+
           if (searchedCardId == damagedCardId) {
             cardElement = tempElement;
-            break; // Выход из цикла, так как элемент найден
+            break;
           }
         }
       }
@@ -437,7 +400,6 @@ socket.on("players-ready", () => {
         cardElement.firstElementChild.textContent = statsElementText;
       }
 
-      console.log("отримав прочухана");
       socket.emit(
         "send-enemy-card-damaged",
         damage,
@@ -456,16 +418,15 @@ socket.on("players-ready", () => {
 
         for (let i = 0; i < enemyCardElements.length; i++) {
           let enemyCardElement = enemyCardElements[i];
-          // Внутри каждого элемента .enemy-card находим .card
+
           let tempElement = enemyCardElement.querySelector(".card");
 
-          // Проверяем, есть ли .card внутри .enemy-card и получаем data-id
           if (tempElement) {
             var searchedCardId = tempElement.getAttribute("data-id");
-            // Сравниваем значение data-id с целевым значением
+
             if (searchedCardId == damagedCardId) {
               cardElement = tempElement;
-              break; // Выход из цикла, так как элемент найден
+              break;
             }
           }
         }
@@ -517,11 +478,9 @@ socket.on("players-ready", () => {
     head.children[1].textContent = remainingHp;
   });
 
-  // Add drop event listener to the table field
   tableField.addEventListener("dragover", handleDragOver);
   tableField.addEventListener("drop", handleDrop);
 
-  // Add a click event listener to the document
   enemyField.addEventListener("click", handleCardClick);
   tableField.addEventListener("click", handleCardClick);
   enemyHead.addEventListener("click", (event) => {
@@ -545,9 +504,9 @@ socket.on("players-ready", () => {
     }, 1000);
   });
 
-  socket.on("game-ended", (loser) => {
+  socket.on("game-ended", (player) => {
     isGameEnded = true;
     const gameEndMessage = document.getElementById("game-end-message");
-    gameEndMessage.innerHTML = `<p style="font-size: 24px; color: red; font-family: fantasy;">Игра завершена! ${loser} проиграл!</p>`;
+    gameEndMessage.innerHTML = `<p style="font-size: 24px; color: red; font-family: fantasy;">GAME OVER! ${player} lost!</p>`;
   });
 });

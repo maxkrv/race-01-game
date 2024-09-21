@@ -24,7 +24,7 @@ const loginUser = catchAsync(async (req, res, next) => {
   if (user) {
     req.session.loggedIn = true;
     req.session.user = user;
-    return res.sendFile(path.join(__dirname, "../../views/main-menu.html"));
+    return res.sendFile(path.join(__dirname, "../../views/menu.html"));
   }
   return next(new Error("Unauthorized"));
 });
@@ -79,7 +79,7 @@ const uploadAvatar = (req, res, next) => {
           new Error("Error updating avatar in database: " + err.message)
         );
       }
-      return res.sendFile(path.join(__dirname, "../../views/main-menu.html"));
+      return res.sendFile(path.join(__dirname, "../../views/menu.html"));
     }
   );
 };

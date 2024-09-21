@@ -1,53 +1,57 @@
 const socket = io();
+const urlParams = new URLSearchParams(window.location.search);
+const roomId = urlParams.get('roomId');
+let isReady = false;
 
-// Функция для обновления информации о созданной комнате
+// DOM Elements
+const roomNameElement = document.getElementById('room-name');
+const roomHostElement = document.getElementById('room-host');
+const playerListContainer = document.getElementById('player-list-container');
+const startButton = document.getElementById('start-button');
+
+// Emitters
+socket.emit('get-room', roomId);
+socket.emit('get-players', roomId);
+
+// Event Listeners
+startButton.addEventListener('click', handlePlayerReady);
+
+// Socket Events
+socket.on('get-room-response', updateRoomInfo);
+socket.on('send-players', displayPlayers);
+socket.on('ready', updateReadyPlayer);
+socket.on('start-game', startGame);
+
+// Functions
 function updateRoomInfo(room) {
-    const roomNameElement = document.getElementById('room-name');
-    const roomHostElement = document.getElementById('room-host');
-    roomNameElement.textContent = room.name;
-    roomHostElement.textContent = room.creator;
+  roomNameElement.textContent = room.name;
+  roomHostElement.textContent = room.creator;
 }
 
-const urlParams = new URLSearchParams(window.location.search);
-const roomid = urlParams.get('roomId');
-
-socket.emit('get-room', roomid);
-
-socket.on('get-room-response', (room) => {
-  updateRoomInfo(room);
-});
-
-socket.emit('get-players', roomid);
-
-socket.on('send-players', (players) => {
-  const playerListContainer = document.getElementById('player-list-container');
+function displayPlayers(players) {
   playerListContainer.innerHTML = '';
-  players.forEach((player) => {
+  players.forEach(addPlayerToList);
+}
+
+function addPlayerToList(player) {
   const playerElement = document.createElement('div');
   playerElement.textContent = player;
   playerListContainer.appendChild(playerElement);
-});
-});
+}
 
-const startButton = document.getElementById('start-button');
-
-let isReady = false;
-
-startButton.addEventListener('click', () => {
+function handlePlayerReady() {
   if (!isReady) {
-    socket.emit('player-ready', roomid);
+    socket.emit('player-ready', roomId);
     isReady = true;
   }
-});
+}
 
-socket.on('ready', (playerName) => {
-  const playerListContainer = document.getElementById('player-list-container');
+function updateReadyPlayer(playerName) {
   const playerElement = document.createElement('div');
-  playerElement.textContent = `${playerName} (готов)`;
+  playerElement.textContent = `${playerName} (ready)`;
   playerListContainer.appendChild(playerElement);
-});
+}
 
-
-socket.on('start-game', (roomName, playerName) => {
+function startGame(roomName, playerName) {
   window.location.href = `/table.html?roomId=${roomName}&playerName=${playerName}`;
-});
+}

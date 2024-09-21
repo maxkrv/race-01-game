@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Card Game</title>
-    <link rel="stylesheet" href="main-menu.css">
+    <link rel="stylesheet" href="menu.css">
     <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
@@ -18,7 +18,9 @@
                 <h2>Change avatar.</h2>
                 <form action="/upload-avatar" method="POST" enctype="multipart/form-data">
                     <input type="file" name="avatar" accept="image/*">
-                    <input type="submit" value="Сохранить">
+                    <button>
+                        Submit
+                    </button>
                 </form>
                 <button onclick="closeAvatarPanel()">Cancel</button>
             </div>
@@ -39,7 +41,7 @@
             </div>
         </div>
     </div>
-    <script src="main-menu.js"></script>
+    <script src="menu.js"></script>
     <script src="user-info.js"></script>
     <script src="create-room.js"></script>
 </body>

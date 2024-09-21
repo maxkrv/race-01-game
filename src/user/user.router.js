@@ -18,20 +18,20 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../views/main-menu.html"));
+  res.sendFile(path.join(__dirname, "../../views/menu.html"));
 });
 router.get("/registration", (req, res) =>
   res.sendFile(path.join(__dirname, "../../views/registration.html"))
 );
-router.get("/registered", (req, res) =>
-  res.sendFile(path.join(__dirname, "../../views/registered.html"))
+router.get("/auth-success", (req, res) =>
+  res.sendFile(path.join(__dirname, "../../views/auth-success.html"))
 );
 router.get("/forgot-password", (req, res) =>
   res.sendFile(path.join(__dirname, "../../views/forgot-password.html"))
 );
 router.get("/user-status", (req, res) => {
   if (req.session.loggedIn) {
-    res.sendFile(path.join(__dirname, "../../views/main-menu.html"));
+    res.sendFile(path.join(__dirname, "../../views/menu.html"));
   } else {
     res.sendStatus(401);
   }

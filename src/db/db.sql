@@ -1,6 +1,6 @@
 CREATE DATABASE IF NOT EXISTS cards_web;
-CREATE USER IF NOT EXISTS 'oputij'@'localhost' IDENTIFIED BY 'securepass';
-GRANT ALL ON cards_web.* TO 'oputij'@'localhost';
+CREATE USER IF NOT EXISTS 'username'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL ON cards_web.* TO 'username'@'localhost';
 
 CREATE TABLE IF NOT EXISTS cards_web.users (
     id INT AUTO_INCREMENT PRIMARY KEY,

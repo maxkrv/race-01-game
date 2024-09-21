@@ -1,10 +1,10 @@
 fetch('/user-info')
   .then(response => response.json())
   .then(userData => {
-    document.getElementById('user-name').textContent = userData.login;
     document.getElementById('user-avatar').src = `avatars/${userData.avatar_path}`;
+    document.getElementById('user-name').textContent = userData.login;
     console.log(userData.avatar_path);
   })
   .catch(error => {
-    console.error('Ошибка при получении данных о пользователе:', error);
+    console.log('🚀 ~ file: user-info.js:11 ~ error:', error);
   });
