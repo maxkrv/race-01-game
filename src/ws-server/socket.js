@@ -138,7 +138,7 @@ module.exports = (server, sessionMiddleware) => {
 
     socket.on("put-card", async (enemyCardId, sender) => {
       try {
-        const enemyCard = await gameModel.getEnemyCard(enemyCardId);
+        const enemyCard = await gameModel.getOpponentCard(enemyCardId);
         if (enemyCard) {
           io.emit("load-enemy-card", enemyCard, sender);
         }
@@ -149,7 +149,7 @@ module.exports = (server, sessionMiddleware) => {
 
     socket.on("get-card", async (login) => {
       try {
-        const randomCard = await gameModel.getRandomCard();
+        const randomCard = await gameModel.getCard();
         if (randomCard) {
           io.emit("randomCard", randomCard, login);
         }
@@ -160,7 +160,7 @@ module.exports = (server, sessionMiddleware) => {
 
     socket.on("get_path_by_name_enemy", async (name) => {
       try {
-        const path = await gameModel.findPathByName(name);
+        const path = await gameModel.getAvatarPathByUsername(name);
         if (path) {
           socket.emit("send-path_enemy", path.avatar_path);
         }
@@ -171,7 +171,7 @@ module.exports = (server, sessionMiddleware) => {
 
     socket.on("get_path_by_name_my", async (name) => {
       try {
-        const path = await gameModel.findPathByName(name);
+        const path = await gameModel.getAvatarPathByUsername(name);
         if (path) {
           socket.emit("send-path_my", path.avatar_path);
         }

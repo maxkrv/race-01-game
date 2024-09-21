@@ -7,7 +7,7 @@ class User {
     this.db = db;
   }
 
-  async saveToDatabase() {
+  saveToDatabase = async () => {
     const sql =
       "INSERT INTO users (login, password, full_name, email_address, avatar_path) VALUES (?, ?, ?, ?, ?)";
     const url = "avatars/baza.png";
@@ -26,9 +26,9 @@ class User {
       console.error("Database error: " + err);
       throw err;
     }
-  }
+  };
 
-  static async findUserByLoginAndPassword(login, password, db) {
+  static findUserByLoginAndPassword = async (login, password, db) => {
     const sql = "SELECT * FROM users WHERE login = ? AND password = ?";
     const values = [login, password];
 
@@ -42,9 +42,9 @@ class User {
       console.error("Database error: " + err);
       throw err;
     }
-  }
+  };
 
-  static async findUserByEmail(email, db) {
+  static findUserByEmail = async (email, db) => {
     const sql = "SELECT * FROM users WHERE email_address = ?";
     const values = [email];
 
@@ -58,7 +58,7 @@ class User {
       console.error("Database error: " + err);
       throw err;
     }
-  }
+  };
 }
 
 module.exports = User;

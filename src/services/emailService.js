@@ -8,7 +8,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-function sendPasswordReminderEmail(email, password) {
+const sendPasswordReminderEmail = (email, password) => {
   const mailOptions = {
     from: "your-email@gmail.com",
     to: email,
@@ -18,13 +18,9 @@ function sendPasswordReminderEmail(email, password) {
 
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
-      console.error("Email sending error: " + error);
-    } else {
-      console.log("Email sent: " + info.response);
+      console.error("Email sending error:", error);
     }
   });
-}
-
-module.exports = {
-  sendPasswordReminderEmail,
 };
+
+module.exports = sendPasswordReminderEmail;
