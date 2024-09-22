@@ -18,20 +18,20 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../views/menu.html"));
+  res.sendFile(path.join(__dirname, "../../public/menu.html"));
 });
 router.get("/registration", (req, res) =>
-  res.sendFile(path.join(__dirname, "../../views/registration.html"))
+  res.sendFile(path.join(__dirname, "../../public/registration.html"))
 );
 router.get("/auth-success", (req, res) =>
-  res.sendFile(path.join(__dirname, "../../views/auth-success.html"))
+  res.sendFile(path.join(__dirname, "../../public/auth-success.html"))
 );
 router.get("/forgot-password", (req, res) =>
-  res.sendFile(path.join(__dirname, "../../views/forgot-password.html"))
+  res.sendFile(path.join(__dirname, "../../public/forgot-password.html"))
 );
 router.get("/user-status", (req, res) => {
   if (req.session.loggedIn) {
-    res.sendFile(path.join(__dirname, "../../views/menu.html"));
+    res.sendFile(path.join(__dirname, "../../public/menu.html"));
   } else {
     res.sendStatus(401);
   }
@@ -39,7 +39,7 @@ router.get("/user-status", (req, res) => {
 router.get("/logout", userController.logoutUser);
 router.get("/user-info", userController.getUserInfo);
 router.get("/lobby", (req, res) =>
-  res.sendFile(path.join(__dirname, "../../views/lobby.html"))
+  res.sendFile(path.join(__dirname, "../../public/lobby.html"))
 );
 
 router.post("/register", userController.registerUser);

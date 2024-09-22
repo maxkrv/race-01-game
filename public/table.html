@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/table.css" />
+    <title>Game board</title>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+
+  <body>
+    <div class="game-window">
+      <div class="table">
+        <div class="countdown"></div>
+
+        <div class="heads">
+          <div class="top-head">
+            <div class="my-head"></div>
+            <div class="my-hp">20</div>
+            <div class="my-name"></div>
+          </div>
+
+          <div class="bottom-head">
+            <div class="enemy-head"></div>
+            <div class="enemy-hp">20</div>
+            <div class="enemy-name"></div>
+          </div>
+        </div>
+
+        <div class="battlefield">
+          <div class="enemy-field">
+            <div class="enemy-card"></div>
+            <div class="enemy-card"></div>
+            <div class="enemy-card"></div>
+            <div class="enemy-card"></div>
+            <div class="enemy-card"></div>
+            <div class="enemy-card"></div>
+          </div>
+
+          <div id="game-end-message"></div>
+
+          <div class="my-field">
+            <div class="my-card"></div>
+            <div class="my-card"></div>
+            <div class="my-card"></div>
+            <div class="my-card"></div>
+            <div class="my-card"></div>
+            <div class="my-card"></div>
+          </div>
+        </div>
+
+        <div class="turn-ender">
+          <div id="timer" class="timer"></div>
+          <div class="currentMove"></div>
+        </div>
+
+        <div class="value"></div>
+      </div>
+      <div class="hand"></div>
+    </div>
+
+    <script src="./js/board.js"></script>
+  </body>
+</html>

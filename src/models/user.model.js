@@ -10,7 +10,7 @@ class User {
   saveToDatabase = async () => {
     const sql =
       "INSERT INTO users (login, password, full_name, email_address, avatar_path) VALUES (?, ?, ?, ?, ?)";
-    const url = "avatars/baza.png";
+    const url = "icons/default_icon.png";
     const values = [
       this.login,
       this.password,

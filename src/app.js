@@ -12,13 +12,9 @@ const server = http.createServer(app);
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
-app.use(express.static("views"));
-app.use(express.static("js"));
-app.use("/avatars", express.static("avatars"));
-app.use(express.static("node_modules"));
 
 const sessionMiddleware = session({
-  secret: "armagedon",
+  secret: "cardgame",
   resave: true,
   saveUninitialized: true,
 });
