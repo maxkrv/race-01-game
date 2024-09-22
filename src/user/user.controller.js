@@ -14,7 +14,7 @@ const registerUser = catchAsync(async (req, res, next) => {
 
   const newUser = new User(login, password, full_name, email_address, pool);
   await newUser.saveToDatabase();
-  return res.redirect("/registered");
+  return res.redirect("/auth-success");
 });
 
 const loginUser = catchAsync(async (req, res, next) => {
