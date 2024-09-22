@@ -1,0 +1,337 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url("../img/background.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.profiles {
+    display: flex;
+    flex-direction: column;
+    background-color: aquamarine;
+    margin-left: -840px;
+}
+
+.first-profile {
+    height: 20px;
+    width: 20px;
+    background-color: aqua;
+}
+
+.first-profile {
+    height: 20px;
+    width: 20px;
+    background-color: red;
+}
+
+.game-window {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+
+.table {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+   
+    align-items: center;
+    background-image: url("../img/table.jpeg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height:600px;
+    width: 1000px;
+   
+    margin-bottom: 20px;
+    margin-top: 40px;
+}
+
+.heads {
+    position: relative;
+    right: 350px;
+}
+
+.top-head {
+    align-self: center;
+    align-content: center;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    top: 260px
+}
+
+.bottom-head {
+    align-self: center;
+    align-content: center;
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    bottom: 260px
+}
+
+.enemy-head {
+    width: 60px;
+    height: 60px;
+    background-image: url("../img/default_image.png");
+    background-size: cover;
+    background-position: center;
+    border-radius: 100%;
+    position: absolute;
+    top: 40px;
+    left: 325px;
+}
+
+.enemy-hp {
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background-image: url("../img/heart.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 100%;
+    position: absolute;
+    top: 70px;
+    left: 400px;
+}
+
+.my-head {
+    width: 60px;
+    height: 60px;
+    background-image: url("../img/default_image.png");
+    background-size: cover;
+    background-position: center;
+    border-radius: 100%;
+    position: absolute;
+    bottom: 75px;
+    left: 325px;
+}
+
+.my-hp {
+    width: 50px;
+    height: 50px;
+    padding: 5px;
+    font-size: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    background-image: url("../img/heart.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 100%;
+    position: absolute;
+    bottom: 60px;
+    left: 400px;
+}
+
+
+.battlefield {
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-self: center;
+    position: fixed;
+   
+}
+
+.my-field {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+
+    margin-bottom: -10px;
+}
+
+.my-card {
+    width: 74px;
+    height: 104px;
+    border: 2px dashed gray;
+    border-radius: 5px;
+    margin: 0 10px 10px 0;
+}
+
+.hand {
+    display: flex;
+    justify-content: center;
+    margin-top: -140px;
+   
+}
+
+.card {
+    font-size: 8px;
+    width: 80px;
+    height: 110px;
+    border: 2px solid rgb(116, 86, 48);
+    border-radius: 5px;
+    background-color: rgb(255, 228, 196);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: transform 0.3s;
+    position: relative;
+    padding-top: 7px;
+   
+    z-index: 1;
+}
+
+.card::after {
+    content: attr(data-text);
+   
+    position: absolute;
+    top: 0;
+    left: 101%;
+   
+    background-color: rgb(255, 228, 196);
+    padding: 5px;
+    width: 100px;
+   
+    font-size: 8px;
+    border-radius: 3px;
+    white-space: normal;
+   
+    text-orientation: upright;
+    display: none;
+   
+    transform: translateY(-50%);
+   
+}
+
+.card:hover::after {
+    display: block;
+   
+}
+
+.card:active::after {
+    cursor: grab;
+    display: none;
+   
+}
+
+.card-stats {
+    position: absolute;
+    bottom: 10px;
+    left: 15px;
+    right: 15px;
+    padding-bottom: 11px;
+    font-size: 10px;
+    border-radius: 3px;
+    pointer-events: none;
+}
+
+.card:hover {
+    transform: translateY(-50px) scale(2);
+    z-index: 2;
+}
+
+.card:active {
+    transform: translateY(0px) scale(1);
+}
+
+.enemy-field {
+    display: flex;
+    justify-content: center;
+}
+
+.enemy-field .enemy-card {
+    width: 74px;
+    height: 104px;
+    border: 2px dashed gray;
+    border-radius: 5px;
+    margin: 0 10px 10px 0;
+}
+
+.enemy-field .card:hover {
+    transform: translateY(0px) scale(1.4);
+    z-index: 2;
+}
+
+.glow {
+    transform: scale(1.1);
+    box-shadow: 0 0 50px 5px #d3009e;
+}
+
+.turn-ender {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    margin-left: 700px;
+}
+
+.timer {
+    font-size: 20px;
+    font-family: fantasy;
+    position: absolute;
+    top: -65px;
+    left: -78px;
+}
+
+.value {
+    width: 50px;
+    height: 50px;
+    font-size: 30px;
+    background-image: url("../img/coin.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 10px;
+    color: black;
+    position: absolute;
+    bottom: 550px;
+    left: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.my-name {
+    color: orange;
+    position: absolute;
+    top: -125px;
+    left: 180px;
+}
+
+.enemy-name {
+    color: orange;
+    position: absolute;
+    top: 110px;
+    left: 195px;
+}
+
+.countdown {
+    position: absolute;
+    display: flex;
+    font-size: 120px;
+    color: red;
+}
+
+.currentMove {
+    font-family: fantasy;
+    position: absolute;
+    top: -90px;
+    left: -80px;
+}
